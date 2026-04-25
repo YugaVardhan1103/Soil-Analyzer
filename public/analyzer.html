@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostics | TerraScan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">TER<span style="color:var(--neon-green)">RA</span>SCAN</div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="analyzer.html" class="nav-active">SOIL TEST</a></li>
+            <li><a href="crops.html">SEASONS</a></li>
+            <li><a href="database.html">CROP GUIDE</a></li>
+            <li><a href="about.html">HELP & INFO</a></li>
+        </ul>
+        <div class="theme-toggle-wrapper">
+            <button onclick="logout()" class="nav-logout">LOGOUT</button>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span id="themeLabel">DARK</span>
+                <label class="theme-switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+    <section id="analyzerSection" class="main-container">
+        <div class="neon-card">
+            <div class="card-header">
+                <h2 class="section-title">SOIL ANALYSIS DATA</h2>
+                <div>
+                    <button class="exit-btn" onclick="toggleHistory()" style="margin-right: 15px;">[ HISTORY ]</button>
+                    <button class="exit-btn" onclick="window.location.href='index.html'">[ EXIT ]</button>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <label>WHICH CROP ARE YOU GROWING?</label>
+                <select id="crop" class="crop-select">
+                    <option value="generic">🌾 General / Multi-Crop</option>
+                    <option value="tomatoes">🍅 Tomatoes</option>
+                    <option value="corn">🌽 Corn</option>
+                    <option value="rice">🍚 Rice</option>
+                    <option value="wheat">🍞 Wheat</option>
+                    <option value="sugarcane">🎋 Sugarcane</option>
+                    <option value="cotton">☁️ Cotton</option>
+                    <option value="soybean">🫛 Soybean</option>
+                    <option value="potato">🥔 Potato</option>
+                </select>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>NITROGEN [N]</label>
+                    <small id="n-helper" style="font-size: 0.75rem; color: #888; display: block; margin-bottom: 8px;">Optimal Range: 30 - 150</small>
+                    <div class="input-wrapper">
+                        <input type="number" id="n" placeholder="00.00">
+                        <span class="status-icon" id="n-status"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>PHOSPHORUS [P]</label>
+                    <small id="p-helper" style="font-size: 0.75rem; color: #888; display: block; margin-bottom: 8px;">Optimal Range: 20 - 100</small>
+                    <div class="input-wrapper">
+                        <input type="number" id="p" placeholder="00.00">
+                        <span class="status-icon" id="p-status"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>POTASSIUM [K]</label>
+                    <small id="k-helper" style="font-size: 0.75rem; color: #888; display: block; margin-bottom: 8px;">Optimal Range: 40 - 150</small>
+                    <div class="input-wrapper">
+                        <input type="number" id="k" placeholder="00.00">
+                        <span class="status-icon" id="k-status"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>pH LEVEL</label>
+                    <small id="ph-helper" style="font-size: 0.75rem; color: #888; display: block; margin-bottom: 8px;">Optimal Range: 6.0 - 7.5</small>
+                    <div class="input-wrapper">
+                        <input type="number" id="ph" step="0.1" placeholder="07.0">
+                        <span class="status-icon" id="ph-status"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="scanBtn" onclick="analyzeSoil()">START ANALYSIS</button>
+
+            <div id="output" class="result-area hidden">
+                <div class="terminal-header">OFFICIAL SOIL HEALTH REPORT</div>
+                
+                <div class="summary-box">
+                    <div class="health-score-ring">
+                        <span id="healthScore">--</span>
+                        <small>SCORE</small>
+                    </div>
+                    <div class="summary-text">
+                        <h3 id="summaryTitle">Analysis Pending...</h3>
+                        <p id="summaryDesc">Our AI is processing your soil samples against global agricultural standards.</p>
+                    </div>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <label>STATUS</label>
+                        <div id="soilStatus">CHECKING...</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>CROP COMPATIBILITY</label>
+                        <div id="cropCompatibility">--</div>
+                    </div>
+                </div>
+
+                <ul id="recList"></ul>
+                
+                <div class="chart-container" style="position: relative; height: 250px; margin-top: 25px;">
+                    <canvas id="yieldChart"></canvas>
+                </div>
+                
+                <button class="glow-button" style="width: 100%; margin-top: 30px; font-size: 14px;"
+                    onclick="exportPDF()" id="exportPdfBtn">[ DOWNLOAD FULL PDF REPORT ]</button>
+            </div>
+
+            <!-- History Modal -->
+            <div id="historyModal" class="hidden"
+                style="margin-top: 30px; border-top: 1px dashed var(--dark-green); padding-top: 20px;">
+                <h3 style="color: var(--neon-green); font-size: 14px; margin-bottom: 15px;">RECENT SOIL TESTS</h3>
+                <ul id="historyList" style="list-style-type: none; font-size: 12px; color: #ccc;">
+                    <li>No history found.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot UI -->
+    <div id="chatWidget">
+        <button id="chatToggle" onclick="toggleChat()" style="display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
+                <path d="M12 11v-4"></path>
+                <circle cx="12" cy="5" r="2"></circle>
+                <circle cx="8" cy="16" r="1"></circle>
+                <circle cx="16" cy="16" r="1"></circle>
+            </svg>
+            BOT
+        </button>
+        <div id="chatWindow" class="hidden">
+            <div class="chat-header">
+                <span>Soil Assistant</span>
+                <button onclick="toggleChat()">X</button>
+            </div>
+            <div class="chat-history" id="chatHistory">
+                <div class="bot-msg">System: Soil Assistant online. Ask me about soil quality, N-P-K, or yields.</div>
+
+                <div class="quick-replies" id="quickReplies">
+                    <button class="qr-btn" onclick="sendQuickReply('How do I test my soil?')">🧪 How to test soil?</button>
+                    <button class="qr-btn" onclick="sendQuickReply('What is the ideal pH?')">⚖️ Ideal Soil pH</button>
+                    <button class="qr-btn" onclick="sendQuickReply('Why is Nitrogen important?')">🌿 Explain Nitrogen</button>
+                    <button class="qr-btn" onclick="sendQuickReply('How to optimize yield?')">📈 Optimize Yields</button>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Enter query..." onkeypress="handleChatPress(event)">
+                <button onclick="sendChatMessage()">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

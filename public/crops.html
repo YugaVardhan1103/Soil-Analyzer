@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraScan | Crop Intelligence Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        /* FIX: Override the flex-centering from style.css which was breaking the layout */
+        .main-container {
+            display: block !important;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 120px !important;
+        }
+
+        .crops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .season-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .kharif { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid #ff6b6b; }
+        .rabi { background: rgba(77, 150, 255, 0.2); color: #4d96ff; border: 1px solid #4d96ff; }
+        .annual { background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid #00ff88; }
+
+        .crop-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crop-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: #00ff88;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .crop-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .crop-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ff88;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .intel-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #ccc;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .intel-label { color: #888; text-transform: uppercase; font-size: 0.7rem; }
+
+        .season-header {
+            border-left: 4px solid #00ff88;
+            padding-left: 15px;
+            margin: 50px 0 20px 0;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: #00ff88; }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">TER<span style="color:var(--neon-green)">RA</span>SCAN</div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="analyzer.html">SOIL TEST</a></li>
+            <li><a href="crops.html" class="nav-active">SEASONS</a></li>
+            <li><a href="database.html">CROP GUIDE</a></li>
+            <li><a href="about.html">HELP & INFO</a></li>
+        </ul>
+        <div class="theme-toggle-wrapper">
+            <button onclick="logout()" class="nav-logout">LOGOUT</button>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span id="themeLabel">DARK</span>
+                <label class="theme-switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <header style="text-align: center; margin-bottom: 60px;">
+            <h1 class="hero-title" style="font-size: 3rem;">CROP INTELLIGENCE</h1>
+            <p style="color: #888; font-family: 'Roboto Mono', monospace;">Optimizing your harvest based on seasonal cycles.</p>
+        </header>
+
+        <h2 class="season-header">KHARIF SEASON <span style="color: #ff6b6b; font-size: 0.8rem;">[ JUNE - OCTOBER ]</span></h2>
+        <div class="crops-grid">
+            <!-- Rice -->
+            <div class="crop-card">
+                <span class="season-badge kharif">Kharif</span>
+                <span class="crop-icon">🍚</span>
+                <h3 class="crop-title">RICE</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>June - July</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>Oct - Nov</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Clayey / Loamy</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">Requires heavy irrigation and standing water for optimal growth.</p>
+            </div>
+
+            <!-- Corn -->
+            <div class="crop-card">
+                <span class="season-badge kharif">Kharif</span>
+                <span class="crop-icon">🌽</span>
+                <h3 class="crop-title">CORN (MAIZE)</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>June - July</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>Sept - Oct</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Well-drained Loam</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">A versatile crop that thrives in warm, humid weather conditions.</p>
+            </div>
+
+            <!-- Cotton -->
+            <div class="crop-card">
+                <span class="season-badge kharif">Kharif</span>
+                <span class="crop-icon">☁️</span>
+                <h3 class="crop-title">COTTON</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>May - June</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>Dec - Jan</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Black Soil (Regur)</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">Requires high temperature and moderate rainfall with clear skies.</p>
+            </div>
+
+            <!-- Soybean -->
+            <div class="crop-card">
+                <span class="season-badge kharif">Kharif</span>
+                <span class="crop-icon">🫛</span>
+                <h3 class="crop-title">SOYBEAN</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>June - July</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>Oct - Nov</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Sandy Loam</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">A major source of protein; requires moderate temperatures for flowering.</p>
+            </div>
+        </div>
+
+        <h2 class="season-header">RABI SEASON <span style="color: #4d96ff; font-size: 0.8rem;">[ NOVEMBER - APRIL ]</span></h2>
+        <div class="crops-grid">
+            <!-- Wheat -->
+            <div class="crop-card">
+                <span class="season-badge rabi">Rabi</span>
+                <span class="crop-icon">🍞</span>
+                <h3 class="crop-title">WHEAT</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>Nov - Dec</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>March - April</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Loamy Soil</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">Thrives in cool weather and requires bright sunshine during ripening.</p>
+            </div>
+
+            <!-- Potato -->
+            <div class="crop-card">
+                <span class="season-badge rabi">Rabi</span>
+                <span class="crop-icon">🥔</span>
+                <h3 class="crop-title">POTATO</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>Oct - Nov</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>Jan - Feb</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Loose Sandy Soil</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">Needs loose soil for tuber development; sensitive to heavy frost.</p>
+            </div>
+
+            <!-- Tomato -->
+            <div class="crop-card">
+                <span class="season-badge rabi">Rabi/Spring</span>
+                <span class="crop-icon">🍅</span>
+                <h3 class="crop-title">TOMATO</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>Nov - Jan</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>March - May</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Sandy to Clay Loam</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">Requires well-drained soil rich in organic matter for best yield.</p>
+            </div>
+        </div>
+
+        <h2 class="season-header">ANNUAL / SPECIAL <span style="color: #00ff88; font-size: 0.8rem;">[ YEAR-ROUND ]</span></h2>
+        <div class="crops-grid">
+            <!-- Sugarcane -->
+            <div class="crop-card" style="grid-column: span 1;">
+                <span class="season-badge annual">Annual</span>
+                <span class="crop-icon">🎋</span>
+                <h3 class="crop-title">SUGARCANE</h3>
+                <div class="intel-row"><span class="intel-label">Sowing</span><span>Jan - March</span></div>
+                <div class="intel-row"><span class="intel-label">Harvesting</span><span>Dec - March</span></div>
+                <div class="intel-row"><span class="intel-label">Soil Type</span><span>Deep Rich Loam</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">A long-duration crop requiring consistent moisture and hot, humid climate.</p>
+            </div>
+        </div>
+
+        <footer style="margin-top: 100px; text-align: center; color: #444; font-size: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 30px;">
+            TERRASCAN OS v2.1 — DATA DRIVEN AGRICULTURE
+        </footer>
+    </div>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof initBackground === 'function') initBackground();
+            if (typeof initTheme === 'function') initTheme();
+        });
+        
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

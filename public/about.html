@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | TerraScan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">TER<span style="color:var(--neon-green)">RA</span>SCAN</div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="analyzer.html">SOIL TEST</a></li>
+            <li><a href="crops.html">SEASONS</a></li>
+            <li><a href="database.html">CROP GUIDE</a></li>
+            <li><a href="about.html" class="nav-active">HELP & INFO</a></li>
+        </ul>
+        <div class="theme-toggle-wrapper">
+            <button onclick="logout()" class="nav-logout">LOGOUT</button>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span id="themeLabel">DARK</span>
+                <label class="theme-switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+
+    <section id="aboutSection" class="main-container">
+        <div class="neon-card" style="max-width: 800px;">
+            <div class="card-header">
+                <h2 class="section-title">HELP & SYSTEM INFORMATION</h2>
+            </div>
+            <div style="margin-top: 25px; line-height: 1.8; color: #ccc; font-size: 15px;">
+                <h3 style="color: var(--neon-green); margin-bottom: 10px;">Our Mission</h3>
+                <p>TerraScan was created to bridge the gap between complex laboratory data and practical field work. Our mission is to empower every farmer with the data needed to make informed decisions about their soil health and fertilizer usage.</p>
+                
+                <h3 style="color: var(--neon-green); margin-top: 25px; margin-bottom: 10px;">Why Test Your Soil?</h3>
+                <ul style="padding-left: 20px; list-style-type: disc;">
+                    <li><strong>Save Money:</strong> Don't waste money on fertilizers your soil doesn't actually need.</li>
+                    <li><strong>Better Yields:</strong> Ensure your crops have the exact nutrients they need to reach their full potential.</li>
+                    <li><strong>Soil Health:</strong> Prevent nutrient toxicity and long-term soil degradation by balancing N-P-K levels.</li>
+                    <li><strong>Environment:</strong> Reduce fertilizer runoff into local water sources by applying only what is necessary.</li>
+                </ul>
+
+                <h3 style="color: var(--neon-green); margin-top: 25px; margin-bottom: 10px;">Using the Soil Assistant</h3>
+                <p>Simply enter the values from your soil test report (usually measured in mg/kg or ppm) and select the crop you plan to grow. Our system will analyze the data and provide immediate recommendations based on established agricultural guidelines.</p>
+
+                <div style="border-left: 3px solid var(--neon-green); padding-left: 15px; margin-top: 30px; background: rgba(0,255,136,0.05); padding: 20px;">
+                    <p style="font-style: italic;">"Sustainable farming starts with understanding the ground beneath our feet. TerraScan gives you the digital eyes to see what your soil is asking for."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

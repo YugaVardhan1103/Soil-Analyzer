@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Analyzer | Neural Agriculture</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">TER<span style="color:var(--neon-green)">RA</span>SCAN</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-active">HOME</a></li>
+            <li><a href="analyzer.html">SOIL TEST</a></li>
+            <li><a href="crops.html">SEASONS</a></li>
+            <li><a href="database.html">CROP GUIDE</a></li>
+            <li><a href="about.html">HELP & INFO</a></li>
+        </ul>
+        <div class="theme-toggle-wrapper">
+            <button onclick="logout()" class="nav-logout">LOGOUT</button>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span id="themeLabel">DARK</span>
+                <label class="theme-switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+    <section id="heroSection" class="hero">
+        <div class="hero-content">
+            <h1 class="glow-green">Smart Soil Assistant</h1>
+            <p style="margin-bottom: 30px; letter-spacing: 2px;">ADVANCED SOIL TESTING & FERTILIZER GUIDE</p>
+            <button class="glow-button" onclick="window.location.href='analyzer.html'">START YOUR SOIL TEST</button>
+
+            <div class="fertilizer-info">
+                <div class="info-card">
+                    <h3>NITROGEN [N]</h3>
+                    <p>Crucial for vegetative growth. Builds amino acids and chlorophyll for lush, green leaves.</p>
+                </div>
+                <div class="info-card">
+                    <h3>PHOSPHORUS [P]</h3>
+                    <p>Powers root development, flower and fruit formation, and cellular energy transfer.</p>
+                </div>
+                <div class="info-card">
+                    <h3>POTASSIUM [K]</h3>
+                    <p>Enhances disease resistance, water regulation, and overall plant structural hardiness.</p>
+                </div>
+            </div>
+
+            <div class="system-info">
+                <h2>HOW TO TEST YOUR SOIL</h2>
+                <div class="info-grid">
+                    <div class="info-block">
+                        <h4>1. TAKE A SAMPLE</h4>
+                        <p>Collect soil from different spots in your field. Mix them in a clean bucket to get a fair average of your field's health.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>2. ENTER THE VALUES</h4>
+                        <p>Enter your Nitrogen, Phosphorus, Potassium (N-P-K), and pH levels from your lab report into our digital assistant.</p>
+                    </div>
+                    <div class="info-block">
+                        <h4>3. GET YOUR GUIDE</h4>
+                        <p>Get instant advice on which fertilizers to use and how much you can expect your crops to grow this season.</p>
+                    </div>
+                </div>
+
+                <div class="ph-info">
+                    <h3>THE IMPORTANCE OF SOIL pH</h3>
+                    <p>Soil pH dictates nutrient availability. Even if your N-P-K levels are perfectly balanced, an extremely acidic (pH < 5.5) or highly alkaline (pH> 8.0) soil will chemically bind nutrients, making them completely inaccessible to plant roots. Target a neutral pH range (6.0 - 7.5) for optimal fertilizer utilization and maximum yield.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

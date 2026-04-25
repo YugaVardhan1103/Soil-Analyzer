@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database | TerraScan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand">TER<span style="color:var(--neon-green)">RA</span>SCAN</div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="analyzer.html">SOIL TEST</a></li>
+            <li><a href="crops.html">SEASONS</a></li>
+            <li><a href="database.html" class="nav-active">CROP GUIDE</a></li>
+            <li><a href="about.html">HELP & INFO</a></li>
+        </ul>
+        <div class="theme-toggle-wrapper">
+            <button onclick="logout()" class="nav-logout">LOGOUT</button>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span id="themeLabel">DARK</span>
+                <label class="theme-switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+
+    <section id="databaseSection" class="main-container">
+        <div class="neon-card" style="max-width: 800px; width: 90%;">
+            <div class="card-header">
+                <h2 class="section-title">CROP NUTRIENT GUIDE</h2>
+            </div>
+            <div class="db-grid">
+                <div class="db-card">
+                    <h3>🍅 TOMATOES</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 50 - 120</span>
+                        <span><strong>P:</strong> 40 - 100</span>
+                        <span><strong>K:</strong> 80 - 180</span>
+                        <span><strong>pH:</strong> 6.0 - 6.8</span>
+                    </div>
+                    <small>High Potassium requirement for fruit formulation.</small>
+                </div>
+                <div class="db-card">
+                    <h3>🌽 CORN</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 80 - 200</span>
+                        <span><strong>P:</strong> 30 - 80</span>
+                        <span><strong>K:</strong> 50 - 120</span>
+                        <span><strong>pH:</strong> 5.8 - 7.0</span>
+                    </div>
+                    <small>Requires massive Nitrogen inputs for vegetative growth.</small>
+                </div>
+                <div class="db-card">
+                    <h3>🍚 RICE</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 40 - 100</span>
+                        <span><strong>P:</strong> 20 - 60</span>
+                        <span><strong>K:</strong> 30 - 80</span>
+                        <span><strong>pH:</strong> 5.5 - 6.5</span>
+                    </div>
+                    <small>Thrives in slightly acidic, water-logged soils.</small>
+                </div>
+                <div class="db-card">
+                    <h3>🍞 WHEAT</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 60 - 150</span>
+                        <span><strong>P:</strong> 30 - 80</span>
+                        <span><strong>K:</strong> 40 - 100</span>
+                        <span><strong>pH:</strong> 6.0 - 7.0</span>
+                    </div>
+                    <small>Needs balanced phosphorous for strong structural stalks.</small>
+                </div>
+                <div class="db-card">
+                    <h3>🎋 SUGARCANE</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 100 - 250</span>
+                        <span><strong>P:</strong> 40 - 100</span>
+                        <span><strong>K:</strong> 80 - 200</span>
+                        <span><strong>pH:</strong> 6.5 - 7.5</span>
+                    </div>
+                    <small>Requires substantial water and nutrients for long growth cycles.</small>
+                </div>
+                <div class="db-card">
+                    <h3>☁️ COTTON</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 60 - 120</span>
+                        <span><strong>P:</strong> 30 - 80</span>
+                        <span><strong>K:</strong> 40 - 100</span>
+                        <span><strong>pH:</strong> 5.8 - 6.5</span>
+                    </div>
+                    <small>Needs balanced nutrients and proper drainage for fiber quality.</small>
+                </div>
+                <div class="db-card">
+                    <h3>🫛 SOYBEAN</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 20 - 60</span>
+                        <span><strong>P:</strong> 40 - 80</span>
+                        <span><strong>K:</strong> 50 - 120</span>
+                        <span><strong>pH:</strong> 6.0 - 7.0</span>
+                    </div>
+                    <small>A nitrogen-fixing crop that still benefits from Phosphorus and Potassium.</small>
+                </div>
+                <div class="db-card">
+                    <h3>🥔 POTATO</h3>
+                    <div class="db-stats">
+                        <span><strong>N:</strong> 80 - 150</span>
+                        <span><strong>P:</strong> 50 - 120</span>
+                        <span><strong>K:</strong> 120 - 250</span>
+                        <span><strong>pH:</strong> 5.0 - 6.5</span>
+                    </div>
+                    <small>High Potassium is essential for large, healthy tuber development.</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
