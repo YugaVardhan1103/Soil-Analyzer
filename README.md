@@ -15,6 +15,9 @@ Soil Analyzer is a web-based application designed to help farmers and gardeners 
 - **Frontend**: HTML, CSS, JavaScript (Vanilla)
 
 ## Deployment
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/YugaVardhan1103/Soil-Analyzer)
+
 This project is configured for easy deployment on **Vercel** or **Render**.
 - **Vercel**: Use the provided `vercel.json`.
 - **Render**: Connect your GitHub repository and it will automatically detect the `start` script.
