@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Dashboard | Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="expert-dashboard">
+    <!-- Sidebar injected here -->
+
+    <main class="main-content">
+        <header class="page-header">
+            <div style="display:flex; align-items:center; gap:20px;">
+                <a href="expert_reports.html" style="text-decoration:none; color:var(--neon-green); font-size:24px;">←</a>
+                <h2>Soil Analysis Deep Dive</h2>
+            </div>
+            <div class="user-meta">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span id="themeLabel" style="font-size:10px;">DARK</span>
+                    <label class="theme-switch" for="themeToggle">
+                        <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <span class="expert-tag">EXPERT</span>
+                <span id="expertEmailDisplay" class="expert-email" style="font-size:12px;color:var(--neon-green);">expert@soil.com</span>
+            </div>
+        </header>
+
+        <div class="dashboard-columns">
+            <!-- Left Column: Report Data & Farmer Profile -->
+            <div class="col-left">
+                <div class="glass-panel" style="padding:25px;">
+                    <h3 style="margin-bottom:20px;">Farmer Profile</h3>
+                    <div id="farmer-profile-mini" style="display:flex; align-items:center; gap:15px;">
+                        <img id="farmer-avatar" src="https://ui-avatars.com/api/?name=Farmer&background=random" class="avatar" style="width:60px; height:60px;">
+                        <div>
+                            <h4 id="farmer-name" style="margin:0; font-size:18px;">--</h4>
+                            <p id="farmer-email" style="font-size:12px; color:#aaa; margin:5px 0;">--</p>
+                            <span id="report-status-badge" class="badge">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding:25px;">
+                    <h3>Raw Data Points</h3>
+                    <div class="analysis-grid" style="grid-template-columns: 1fr 1fr; gap:15px; margin-top:20px;">
+                        <div class="data-point"><label>Nitrogen (N)</label><span class="val" id="val-n">--</span></div>
+                        <div class="data-point"><label>Phosphorus (P)</label><span class="val" id="val-p">--</span></div>
+                        <div class="data-point"><label>Potassium (K)</label><span class="val" id="val-k">--</span></div>
+                        <div class="data-point"><label>pH Level</label><span class="val" id="val-ph">--</span></div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Right Column:  Insights & Advisory Editor -->
+            <div class="col-center" style="grid-column: span 2;">
+                <div class="glass-panel ai-insight-box">
+                    <h3 style="color:var(--neon-green);">  TerraInsights</h3>
+                    <div id="aiInsights" class="ai-insights-text">
+                        Analyzing soil composition against regional standards...
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>Expert Advisory Editor</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Your advice will be sent directly to the farmer's dashboard and mobile app.</p>
+                    <textarea id="advisoryText" placeholder="Write your professional recommendations here..." class="advisory-editor-area"></textarea>
+                    
+                    <div style="display:flex; gap:15px;">
+                        <button onclick="sendAdvisory()" class="glow-button" style="flex:2;">SEND ADVICE TO FARMER</button>
+                        <button onclick="requestResample()" class="glow-button outline" style="flex:1;">REQUEST RESAMPLE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="expert_shared.js"></script>
+    <script src="expert_analysis.js"></script>
+</body>
+</html>

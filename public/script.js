@@ -27,7 +27,7 @@ async function processAuth(type) {
     const emailRegex = /^[^\s@]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     
     if (!emailInput || !emailRegex.test(emailInput)) {
-        errorEl.innerText = "⚠️ Please enter a valid email address.";
+        errorEl.innerText = " Please enter a valid email address.";
         errorEl.classList.remove('hidden');
         return;
     }
@@ -42,7 +42,7 @@ async function processAuth(type) {
         const data = await response.json();
 
         if (!response.ok) {
-            errorEl.innerText = `⚠️ ${data.error || "Authentication failed"}`;
+            errorEl.innerText = ` ${data.error || "Authentication failed"}`;
             errorEl.classList.remove('hidden');
             return;
         }
@@ -52,14 +52,22 @@ async function processAuth(type) {
         if (type === 'login') {
             localStorage.setItem('loggedIn', 'true');
             localStorage.setItem('userEmail', data.email);
-            window.location.href = 'index.html';
+            localStorage.setItem('userRole', data.role);
+            
+            if (data.role === 'admin') {
+                window.location.href = 'admin_dashboard.html';
+            } else if (data.role === 'expert') {
+                window.location.href = 'expert_dashboard.html';
+            } else {
+                window.location.href = 'index.html';
+            }
         } else {
             // After signup, switch to login form
             alert("Account created successfully! Please log in.");
             toggleAuthMode();
         }
     } catch (err) {
-        errorEl.innerText = "⚠️ Connection error. Is the server running?";
+        errorEl.innerText = " Connection error. Is the server running?";
         errorEl.classList.remove('hidden');
     }
 }
@@ -72,10 +80,36 @@ function logout() {
 function toggleAuthMode() {
     const login = document.getElementById('loginForm');
     const signup = document.getElementById('signupForm');
+    const errorEl = document.getElementById('authError');
+    if (errorEl) errorEl.classList.add('hidden'); // Clear errors when switching
+    
     if (login && signup) {
         login.classList.toggle('hidden');
         signup.classList.toggle('hidden');
     }
+}
+
+function setupAuthListeners() {
+    const loginInputs = ['loginUser', 'loginPass'];
+    const signupInputs = ['signupUser', 'signupPass'];
+
+    loginInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') processAuth('login');
+            });
+        }
+    });
+
+    signupInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') processAuth('signup');
+            });
+        }
+    });
 }
 
 function toggleTheme(initTheme = null) {
@@ -370,7 +404,6 @@ function renderYieldChart(n, p, k) {
 }
 
 // Interconnected Neural Particle Background
-
 function initBackground() {
     const pEl = document.getElementById('particles-js');
     if (!pEl) return;
@@ -442,6 +475,11 @@ const CROP_DATA = {
 document.addEventListener('DOMContentLoaded', () => {
     // Check Authorization before rendering
     checkAuth();
+
+    // Setup Auth Listeners if on login page
+    if (window.location.pathname.endsWith('login.html')) {
+        setupAuthListeners();
+    }
 
     // Restore Theme State
     const savedTheme = localStorage.getItem('theme');
@@ -683,7 +721,7 @@ async function loadHistory() {
             </li>
         `).join('');
     } catch (err) {
-        list.innerHTML = '<li>⚠️ Failed to load history.</li>';
+        list.innerHTML = '<li> Failed to load history.</li>';
     }
 }
 
@@ -713,3 +751,84 @@ async function saveFeedback(id, text) {
     }
 }
 
+// =====================================================
+// EXPERT ADVISORY NOTIFICATIONS (Farmer Dashboard)
+// =====================================================
+
+function loadAdvisories() {
+    var email = localStorage.getItem('userEmail');
+    if (!email) return;
+
+    var panel = document.getElementById('advisoryPanel');
+    var list = document.getElementById('advisoryList');
+    var badge = document.getElementById('advisoryBadge');
+    if (!panel || !list) return;
+
+    fetch('/api/farmer/advisories?email=' + encodeURIComponent(email))
+        .then(function(res) { return res.json(); })
+        .then(function(advisories) {
+            if (!advisories || advisories.length === 0) {
+                panel.classList.add('hidden');
+                return;
+            }
+
+            panel.classList.remove('hidden');
+
+            var unreadCount = 0;
+            for (var i = 0; i < advisories.length; i++) {
+                if (advisories[i].status === 'unread') unreadCount++;
+            }
+
+            if (unreadCount > 0 && badge) {
+                badge.innerText = unreadCount;
+                badge.classList.remove('hidden');
+            } else if (badge) {
+                badge.classList.add('hidden');
+            }
+
+            var html = '';
+            for (var i = 0; i < advisories.length; i++) {
+                var a = advisories[i];
+                var dateStr = new Date(a.date).toLocaleDateString() + ' ' + new Date(a.date).toLocaleTimeString();
+                var statusClass = a.status === 'unread' ? 'advisory-unread' : 'advisory-read';
+                html += '<div class="advisory-item ' + statusClass + '">' +
+                    '<div class="advisory-item-header">' +
+                        '<strong>From: ' + a.expertEmail + '</strong>' +
+                        '<span class="advisory-date">' + dateStr + '</span>' +
+                    '</div>' +
+                    '<p class="advisory-message">' + a.message + '</p>';
+
+                if (a.status === 'unread') {
+                    html += '<button class="glow-button sm" onclick="markAdvisoryRead(\'' + a._id + '\')">Mark as Read</button>';
+                } else {
+                    html += '<span class="advisory-read-label">Read</span>';
+                }
+                html += '</div>';
+            }
+            list.innerHTML = html;
+        })
+        .catch(function(err) {
+            console.error('Failed to load advisories:', err);
+        });
+}
+
+function markAdvisoryRead(id) {
+    fetch('/api/farmer/advisories/' + id + '/read', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(function() {
+        loadAdvisories();
+    })
+    .catch(function(err) {
+        console.error('Failed to mark as read:', err);
+    });
+}
+
+// Auto-load advisories on farmer pages
+(function() {
+    var email = localStorage.getItem('userEmail') || '';
+    if (email && !email.endsWith('@expert.com') && document.getElementById('advisoryPanel')) {
+        loadAdvisories();
+    }
+})();

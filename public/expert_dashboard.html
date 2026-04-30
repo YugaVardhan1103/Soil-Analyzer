@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Dashboard | Overview</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="expert-dashboard">
+    <!-- Sidebar will be injected here -->
+
+    <main class="main-content">
+        <header class="page-header">
+            <h2>Dashboard Overview</h2>
+            <div class="user-meta">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span id="themeLabel" style="font-size:10px;">DARK</span>
+                    <label class="theme-switch" for="themeToggle">
+                        <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <span class="expert-tag">EXPERT</span>
+                <span id="expertEmailDisplay" class="expert-email" style="font-size:12px;color:var(--neon-green);">expert@soil.com</span>
+            </div>
+        </header>
+
+        <!-- KPI Strip -->
+        <section class="kpi-strip">
+            <div class="kpi-card glass-panel">
+                <h4>PENDING REPORTS</h4>
+                <div class="kpi-value" id="kpi-pending" style="color: var(--neon-green);">0</div>
+                <div class="kpi-trend" id="kpi-pending-trend">0 total reports</div>
+            </div>
+            <div class="kpi-card glass-panel">
+                <h4>ADVISORIES SENT</h4>
+                <div class="kpi-value" id="kpi-advisories" style="color: var(--neon-green);">0</div>
+                <div class="kpi-trend" id="kpi-advisories-trend">0 unread by farmers</div>
+            </div>
+            <div class="kpi-card glass-panel">
+                <h4>ADVISORY COVERAGE</h4>
+                <div class="kpi-value" id="kpi-coverage" style="color: var(--neon-green);">0%</div>
+                <div class="kpi-trend">Advisory Coverage Rate</div>
+            </div>
+            <div class="kpi-card glass-panel">
+                <h4>ACTIVE FARMERS</h4>
+                <div class="kpi-value" id="kpi-farmers" style="color: var(--neon-green);">0</div>
+                <div class="kpi-trend">Registered farmers</div>
+            </div>
+        </section>
+
+        <div class="dashboard-columns">
+            <!-- Left Column: Activity & Alerts -->
+            <div class="col-left">
+                <div class="glass-panel activity-feed">
+                    <h3>Recent Activity</h3>
+                    <ul class="feed-list" id="activityList">
+                        <li style="color:#888; font-size:12px;">Loading activity...</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-panel alert-panel">
+                    <h3>Critical Alerts <span class="badge urgent" id="alertCountBadge">0</span></h3>
+                    <div id="dynamicAlertsContainer" class="feed-list">
+                        <p style="color:#888; font-size:12px;">Scanning for critical soil issues...</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="margin-top: 20px;">
+                    <h3>🔔 System Notifications</h3>
+                    <div id="notificationsContainer" class="feed-list">
+                        <p style="color:#888; font-size:12px;">Checking for admin broadcasts...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Column: Welcome & Quick Actions -->
+            <div class="col-center" style="grid-column: span 2;">
+                <div class="glass-panel" style="padding: 40px; text-align: center;">
+                    <h1 style="font-family: 'Orbitron'; margin-bottom: 20px;">Welcome back, <span style="color: var(--neon-green);">Expert</span></h1>
+                    <p style="color: #aaa; max-width: 600px; margin: 0 auto 30px;">You have <span id="welcome-pending" style="color: var(--neon-green); font-weight: bold;">0</span> pending reports that require your immediate attention. Check the Reports page to start your analysis.</p>
+                    <a href="expert_reports.html" class="glow-button" style="display: inline-block; padding: 15px 40px;">GO TO REPORTS</a>
+                </div>
+                
+                <div class="glass-panel" style="margin-top: 20px;">
+                    <h3 style="display: flex; align-items: center; gap: 10px;">📢 Global Broadcast <span class="badge" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green); font-size: 10px;">ALL FARMERS</span></h3>
+                    <p style="color: #888; font-size: 12px; margin-bottom: 20px;">Send an immediate advisory alert to every registered farmer in the system.</p>
+                    
+                    <textarea id="broadcastMsg" placeholder="Type your global advisory message here..." class="advisory-editor-area" style="min-height: 100px; margin-bottom: 20px; font-family: 'Roboto Mono';"></textarea>
+                    
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button onclick="sendExpertBroadcast()" class="glow-button" style="padding: 10px 30px;">SEND BROADCAST</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="expert_shared.js"></script>
+    <script src="expert_dashboard.js"></script>
+</body>
+</html>

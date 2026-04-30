@@ -8,6 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 <body class="login-page">
+    <div style="position:fixed; top:20px; right:20px; display:flex; align-items:center; gap:10px; z-index:100;">
+        <span id="themeLabel" style="font-size:10px; color:#aaa;">DARK</span>
+        <label class="theme-switch" for="themeToggle">
+            <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+            <span class="slider"></span>
+        </label>
+    </div>
 
     <div class="glass-panel">
         <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">Welcome Back 👋</h2>

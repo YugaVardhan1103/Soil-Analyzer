@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Overview | TerraScan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="expert-dashboard admin-dashboard">
+
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1>System <span style="color: #ff3e3e;">Overview</span></h1>
+                <p style="color: #888; font-size: 12px;">Admin Node: <span id="adminEmailDisplay" style="color: #fff;">admin@soil.com</span></p>
+            </div>
+            <div class="header-actions">
+                <div style="display:flex; align-items:center; gap:10px; margin-right: 20px;">
+                    <span id="themeLabel" style="font-size:10px; color:#aaa;">DARK</span>
+                    <label class="theme-switch" for="themeToggle">
+                        <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <button class="glow-button sm" onclick="location.reload()">REFRESH SYSTEM</button>
+            </div>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="kpi-card glass-panel">
+                <div class="kpi-label">TOTAL FARMERS</div>
+                <div class="kpi-value" id="stat-farmers">0</div>
+                <div class="kpi-trend positive">+ Registered Users</div>
+            </div>
+            <div class="kpi-card glass-panel">
+                <div class="kpi-label">TOTAL EXPERTS</div>
+                <div class="kpi-value" id="stat-experts">0</div>
+                <div class="kpi-trend positive">+ Staff Members</div>
+            </div>
+            <div class="kpi-card glass-panel">
+                <div class="kpi-label">TOTAL REPORTS</div>
+                <div class="kpi-value" id="stat-reports">0</div>
+                <div class="kpi-trend positive">System Throughput</div>
+            </div>
+            <div class="kpi-card glass-panel">
+                <div class="kpi-label">ACTIVE ADVISORIES</div>
+                <div class="kpi-value" id="stat-advisories">0</div>
+                <div class="kpi-trend positive">Network Connectivity</div>
+            </div>
+        </div>
+
+        <div class="dashboard-columns">
+            <div class="col-left">
+                <div class="glass-panel">
+                    <h3>📢 Quick Broadcast</h3>
+                    <p style="font-size:12px; color:#aaa; margin-bottom:15px;">Send a system-wide alert to specific user groups.</p>
+                    
+                    <div class="input-group" style="margin-bottom:15px;">
+                        <label>Target Audience</label>
+                        <select id="broadcastTarget" class="advisory-editor-area" style="min-height: 40px; padding: 5px 10px;">
+                            <option value="all">Everyone (All Users)</option>
+                            <option value="farmers">Farmers Only</option>
+                            <option value="experts">Experts Only</option>
+                        </select>
+                    </div>
+
+                    <textarea id="broadcastMsg" placeholder="Type system notice..." class="advisory-editor-area" style="min-height: 80px; margin-bottom: 15px;"></textarea>
+                    <button onclick="sendAdminBroadcast()" class="glow-button" style="width: 100%; border-color: #ff3e3e;">SEND TARGETED ALERT</button>
+                </div>
+
+            </div>
+
+            <div class="col-center" style="grid-column: span 2;">
+                <div class="glass-panel">
+                    <h3>📈 Soil Health Global Status</h3>
+                    <div style="height: 250px;">
+                        <canvas id="healthStatusChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>📜 Recent Administrative Actions</h3>
+                    <ul class="activity-list" id="auditLogList">
+                        <!-- Logs will be injected here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="admin_shared.js"></script>
+    <script src="admin_dashboard.js"></script>
+</body>
+</html>

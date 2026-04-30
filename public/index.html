@@ -77,6 +77,19 @@
         </div>
     </section>
 
+    <!-- Expert Advisories Section -->
+    <div class="main-container" style="padding-top: 0; padding-bottom: 40px;">
+        <div id="advisoryPanel" class="advisory-notification-panel">
+            <div class="advisory-panel-header">
+                <h3>📋 EXPERT ADVISORIES <span id="advisoryBadge" class="advisory-badge hidden">0</span></h3>
+                <button class="glow-button sm" id="closeAdvisoryBtn" onclick="document.getElementById('advisoryPanel').classList.add('hidden')">CLOSE</button>
+            </div>
+            <div id="advisoryList" class="advisory-list">
+                <p style="color:#888; font-size:12px;">No advisories yet.</p>
+            </div>
+        </div>
+    </div>
+
     <div id="particles-js"></div>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="script.js"></script>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Dashboard | Advisories</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="expert-dashboard">
+    <!-- Sidebar injected here -->
+
+    <main class="main-content">
+        <header class="page-header">
+            <h2>Sent Advisories</h2>
+            <div class="user-meta">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span id="themeLabel" style="font-size:10px;">DARK</span>
+                    <label class="theme-switch" for="themeToggle">
+                        <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <span class="expert-tag">EXPERT</span>
+                <span id="expertEmailDisplay" class="expert-email" style="font-size:12px;color:var(--neon-green);">expert@soil.com</span>
+            </div>
+        </header>
+
+        <div class="glass-panel" style="margin-bottom: 30px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding: 20px;">
+                <p style="margin:0; font-size:14px; color:#aaa;">Track the status of all recommendations sent to farmers.</p>
+            </div>
+        </div>
+
+        <div id="advisoriesList" class="queue-list" style="max-height: none; overflow: visible; display: grid; grid-template-columns: 1fr; gap: 15px;">
+            <p style="color:#888; font-size:12px;">Loading sent advisories...</p>
+        </div>
+    </main>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="expert_shared.js"></script>
+    <script src="expert_advisories.js"></script>
+</body>
+</html>

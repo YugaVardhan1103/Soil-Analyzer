@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management | TerraScan Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="expert-dashboard admin-dashboard">
+
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1>User <span style="color: #ff3e3e;">Management</span></h1>
+                <p style="color: #888; font-size: 12px;">Global directory of Farmers, Experts, and Administrators.</p>
+            </div>
+            <div class="header-actions" style="display: flex; gap: 15px; align-items: center;">
+                <div style="display:flex; align-items:center; gap:10px; margin-right: 10px;">
+                    <span id="themeLabel" style="font-size:10px; color:#aaa;">DARK</span>
+                    <label class="theme-switch" for="themeToggle">
+                        <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="header-actions" style="display: flex; gap: 15px; flex: 1; max-width: 600px;">
+                <input type="text" id="userSearch" placeholder="Search by email..." class="admin-input" style="flex: 1;">
+                <select id="roleFilter" class="admin-input" style="width: 200px;" onchange="loadUsers()">
+                    <option value="all">All Users</option>
+                    <option value="farmer">Farmers</option>
+                    <option value="expert">Experts</option>
+                </select>
+            </div>
+        </header>
+
+        <div id="userGrid" class="user-grid">
+            <!-- User cards injected here -->
+        </div>
+    </main>
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="admin_shared.js"></script>
+    <script src="admin_users.js"></script>
+</body>
+</html>
