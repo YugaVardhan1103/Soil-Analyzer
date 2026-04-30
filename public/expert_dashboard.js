@@ -85,7 +85,7 @@ function loadSystemNotifications() {
                 container.innerHTML = notifications.map(n => `
                     <li class="${n.status === 'unread' ? 'unread' : ''}" style="border-left: 3px solid #ff3e3e; padding-left: 10px; margin-bottom: 10px; list-style: none;">
                         <div style="font-size: 10px; color: #888;">${new Date(n.date).toLocaleString()}</div>
-                        <div style="color: #eee; font-size: 12px; margin-top: 5px;">${n.message}</div>
+                        <div style="color: var(--text-main); font-size: 12px; margin-top: 5px;">${n.message}</div>
                     </li>
                 `).join('');
             }
