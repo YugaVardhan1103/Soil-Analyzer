@@ -248,7 +248,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 // Helper for social login success
 app.get('/auth-success', (req, res) => {
     const email = req.query.email;
-    const role = email.endsWith('@admin.com') ? 'admin' : (email.endsWith('@expert.com') ? 'expert' : 'farmer');
+    const role = (email.endsWith('@admin.com') || email === 'admin@soil.com') ? 'admin' : (email.endsWith('@expert.com') ? 'expert' : 'farmer');
     res.send(`
         <script>
             localStorage.setItem('loggedIn', 'true');
@@ -274,7 +274,7 @@ app.post('/api/auth/signup', async (req, res) => {
         if (existingUser) return res.status(400).json({ error: "User already exists." });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const role = email.endsWith('@admin.com') ? 'admin' : (email.endsWith('@expert.com') ? 'expert' : 'farmer');
+        const role = (email.endsWith('@admin.com') || email === 'admin@soil.com') ? 'admin' : (email.endsWith('@expert.com') ? 'expert' : 'farmer');
         
         const newUser = new User({ email, password: hashedPassword, role });
         await newUser.save();

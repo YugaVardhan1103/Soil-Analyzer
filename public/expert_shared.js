@@ -7,10 +7,11 @@ function checkExpertAuth() {
         window.location.href = 'login.html';
         return;
     }
-    var email = localStorage.getItem('userEmail') || '';
-    if (!email.endsWith('@expert.com')) {
+    const role = localStorage.getItem('userRole');
+    if (role !== 'expert' && role !== 'admin') {
         window.location.href = 'index.html';
     } else {
+        var email = localStorage.getItem('userEmail') || '';
         var el = document.getElementById('expertEmailDisplay');
         if (el) el.innerText = email;
     }

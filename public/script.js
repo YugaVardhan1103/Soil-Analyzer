@@ -827,8 +827,8 @@ function markAdvisoryRead(id) {
 
 // Auto-load advisories on farmer pages
 (function() {
-    var email = localStorage.getItem('userEmail') || '';
-    if (email && !email.endsWith('@expert.com') && document.getElementById('advisoryPanel')) {
+    var role = localStorage.getItem('userRole') || '';
+    if (role === 'farmer' && document.getElementById('advisoryPanel')) {
         loadAdvisories();
     }
 })();
